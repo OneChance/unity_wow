@@ -10,7 +10,11 @@ public class login : MonoBehaviour
 		void OnClick ()
 		{
 				if (acc_label.text != string.Empty && pwd_label.text != string.Empty) {
-						Debug.Log ("send message to server");		
+						
+						NetWorkScript nws = NetWorkScript.getInstance ();
+						
+						nws.init ();
+
 				} else {
 						Debug.Log ("login error");		
 				}
