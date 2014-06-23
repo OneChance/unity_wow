@@ -25,7 +25,9 @@ public class NetWorkScript
 				try {
 						socket = new Socket (AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 						socket.Connect (ip, port);
-
+						
+						Debug.Log ("connect success");	
+				
 						socket.BeginReceive (buff, 0, 1024, SocketFlags.None, ReceiveCallBack, this);
 
 				} catch {
