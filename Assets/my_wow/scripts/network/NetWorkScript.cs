@@ -3,6 +3,7 @@ using System.Collections;
 using System.Net.Sockets;
 using System;
 using System.IO;
+using System.Collections.Generic;
 
 public class NetWorkScript
 {
@@ -11,6 +12,7 @@ public class NetWorkScript
 		private static string ip = "127.0.0.1";
 		private static int port = 10100;
 		private byte[] buff = new byte[1024];
+		private static List<SocketModel> messageList = new List<SocketModel> ();
 
 		public static NetWorkScript getInstance ()
 		{
@@ -20,18 +22,23 @@ public class NetWorkScript
 				return instance;
 		}
 
+		public List<SocketModel> getMessageList ()
+		{
+				return messageList;
+		}
+
 		public void init ()
 		{
 				try {
 						socket = new Socket (AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 						socket.Connect (ip, port);
 						
-						Debug.Log ("connect success");	
+						//Debug.Log ("connect success");	
 				
 						socket.BeginReceive (buff, 0, 1024, SocketFlags.None, ReceiveCallBack, this);
 
 				} catch {
-						Debug.Log ("connect error");
+						alertConstants.alertList.Add (alertConstants.SERVER_ERROR);
 				}
 		}
 
@@ -52,6 +59,26 @@ public class NetWorkScript
 				socket.BeginReceive (buff, 0, 1024, SocketFlags.None, ReceiveCallBack, this);	
 		}
 
+		private void sendMessage (SocketModel model)
+		{
+				ByteArray ba = new ByteArray ();
+				ba.WriteInt (model.type);
+				ba.WriteInt (model.area);
+				ba.WriteInt (model.command);
+				if (model.message != null && model.message != string.Empty) {
+						ba.WriteInt (model.message.Length);
+						ba.WriteUTFBytes (model.message);
+				} else {
+						ba.WriteInt (0);		
+				}
+
+				try {
+						socket.Send (ba.Buffer);
+				} catch {
+						alertConstants.alertList.Add (alertConstants.SERVER_ERROR);
+				}
+		}
+
 		private void readMessage (byte[] message)
 		{
 				MemoryStream ms = new MemoryStream (message, 0, message.Length);
@@ -61,6 +88,11 @@ public class NetWorkScript
 				model.area = ba.ReadInt ();
 				model.command = ba.ReadInt ();
 				int length = ba.ReadInt ();
-				model.message = ba.ReadUTFBytes ((uint)length);
+			
+				if (length > 0) {
+						model.message = ba.ReadUTFBytes ((uint)length);
+				}
+
+				messageList.Add (model);
 		}
 }

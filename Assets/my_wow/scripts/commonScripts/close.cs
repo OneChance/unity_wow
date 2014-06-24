@@ -4,10 +4,10 @@ using System.Collections;
 public class close : MonoBehaviour
 {
 
-		public GameObject regPanel;
-
+		public GameObject closeObject;
+	
 		void OnClick ()
 		{
-				regPanel.SetActive (false);
+			closeObject.SetActive (false);
 		}
 }

@@ -16,7 +16,7 @@ public class login : MonoBehaviour
 						nws.init ();
 
 				} else {
-						Debug.Log ("login error");		
+						alertConstants.alertList.Add (alertConstants.INPUT_ERROR);	
 				}
 						
 		}

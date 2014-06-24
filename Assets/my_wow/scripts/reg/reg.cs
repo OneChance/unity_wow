@@ -9,12 +9,10 @@ public class reg : MonoBehaviour
 
 		void OnClick ()
 		{
-				if (acc_label.text != string.Empty && pwd_label.text != string.Empty) {
-			
-						Debug.Log ("send account info to server");	
-			
-				} else {
-						Debug.Log ("account info error");		
+				if (acc_label.text != string.Empty && pwd_label.text != string.Empty) {		
+						//Debug.Log ("send account info to server");							
+				} else {	
+						alertConstants.alertList.Add(alertConstants.INPUT_ERROR);	
 				}
 		}
 }
