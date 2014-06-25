@@ -13,6 +13,9 @@ public class CenterController : MonoBehaviour
 
 		void Update ()
 		{
+				
+				NetWorkScript nws = NetWorkScript.getInstance ();
+				
 				List<SocketModel> messageList = NetWorkScript.getInstance ().getMessageList ();
 				for (int i=0; i<5; i++) {
 						if (messageList.Count > 0) {
@@ -22,7 +25,8 @@ public class CenterController : MonoBehaviour
 						} else {
 								break;
 						}		
-				}
+				}	
+				
 		}
 
 		public void onMessage (SocketModel model)

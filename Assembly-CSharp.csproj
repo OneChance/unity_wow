@@ -164,6 +164,8 @@
      <Compile Include="Assets\NGUI\Scripts\UI\UITiledSprite.cs" />
      <Compile Include="Assets\NGUI\Scripts\UI\UITooltip.cs" />
      <Compile Include="Assets\NGUI\Scripts\UI\UIViewport.cs" />
+     <Compile Include="Assets\my_wow\scripts\Bean\Account.cs" />
+     <Compile Include="Assets\my_wow\scripts\Bean\JsonUtil.cs" />
      <Compile Include="Assets\my_wow\scripts\alertWindow\alertConstants.cs" />
      <Compile Include="Assets\my_wow\scripts\alertWindow\alertScripts.cs" />
      <Compile Include="Assets\my_wow\scripts\commonScripts\CenterController.cs" />
@@ -211,6 +213,9 @@
      <None Include="Assets\NGUI\Examples\Atlases\SciFi\SciFi Font - Normal.txt" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored (SoftClip).shader" />
      <None Include="Assets\NGUI\Examples\Models\Orc Armor\Orc Armor.shader" />
+ <Reference Include="LitJson">
+ <HintPath>Assets\my_wow\scripts\Bean\LitJson.dll</HintPath>
+ </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

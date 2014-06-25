@@ -11,10 +11,20 @@ public class login : MonoBehaviour
 		{
 				if (acc_label.text != string.Empty && pwd_label.text != string.Empty) {
 						
-						NetWorkScript nws = NetWorkScript.getInstance ();
-						
-						nws.init ();
+						Account account = new Account ();
+						account.userName = acc_label.text;
+						account.password = pwd_label.text;
 
+						NetWorkScript nws = NetWorkScript.getInstance ();
+
+						SocketModel model = new SocketModel ();
+			
+						model.type = Module.LOGIN;
+						model.area = 0;
+						model.command = Protocal.LOGIN_REQ;
+						model.message = JsonUtil<Account>.encode (account);
+			
+						nws.sendMessage (model);
 				} else {
 						alertConstants.alertList.Add (alertConstants.INPUT_ERROR);	
 				}

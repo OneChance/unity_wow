@@ -130,6 +130,9 @@
  <Reference Include="UnityEditor.Android.Extensions">
  <HintPath>D:\VMware\u\Editor\Data\PlaybackEngines\AndroidPlayer\EditorExtensions\UnityEditor.Android.Extensions.dll</HintPath>
  </Reference>
+ <Reference Include="LitJson">
+ <HintPath>Assets\my_wow\scripts\Bean\LitJson.dll</HintPath>
+ </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp.csproj">
