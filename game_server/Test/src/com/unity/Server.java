@@ -9,9 +9,14 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.List;
+import java.util.Map;
 
+import com.unity.bean.Account;
 import com.unity.bean.Protocal;
+import com.unity.bean.SocketMessage;
 import com.unity.util.ConvertType;
+import com.unity.util.JsonUtil;
 
 public class Server extends ServerSocket {
 	private static final int SERVER_PORT = 10100;
@@ -48,14 +53,19 @@ public class Server extends ServerSocket {
 				byte[] temp = new byte[4];
 
 				while (true) {
+					
+					SocketMessage sm = new SocketMessage();
 
 					int type = 0;
 					in.read(temp);
 					type = ConvertType.getInt(temp, true);
+					
+					sm.setType(type);
 
 					int area = 0;
 					in.read(temp);
 					area = ConvertType.getInt(temp, true);
+					sm.setArea(area);
 
 					int protocal = 0;
 					in.read(temp);
@@ -67,6 +77,7 @@ public class Server extends ServerSocket {
 					switch (protocal) {
 					case Protocal.LOGIN_REQ:// µÇÂ½ÇëÇó
 
+						sm.setCommand(Protocal.LOGIN_RES);
 						
 						in.read(temp);
 						messageLength = ConvertType.getInt(temp, true);
@@ -75,7 +86,9 @@ public class Server extends ServerSocket {
 							byte[] messageBytes = new byte[messageLength];
 							in.read(messageBytes);
 							message = new String(messageBytes);
-
+							
+							Account account = JsonUtil.decode(message,Account.class);
+							
 						}
 
 						break;

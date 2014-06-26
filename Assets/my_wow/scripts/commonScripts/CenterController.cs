@@ -34,6 +34,9 @@ public class CenterController : MonoBehaviour
 				switch (model.type) {
 				case Module.LOGIN:
 						loginC.onMessage (model);
+						
+						
+
 						break;	
 				default:
 						break;
