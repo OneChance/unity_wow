@@ -112,6 +112,9 @@
      <None Include="Assets\NGUI\Examples\Atlases\SciFi\SciFi Font - Normal.txt" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored (SoftClip).shader" />
      <None Include="Assets\NGUI\Examples\Models\Orc Armor\Orc Armor.shader" />
+ <Reference Include="LitJson">
+ <HintPath>Assets\my_wow\scripts\util\LitJson.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEditor.Graphs">
  <HintPath>D:\VMware\u\Editor\Data\Managed\UnityEditor.Graphs.dll</HintPath>
  </Reference>
@@ -129,9 +132,6 @@
  </Reference>
  <Reference Include="UnityEditor.Android.Extensions">
  <HintPath>D:\VMware\u\Editor\Data\PlaybackEngines\AndroidPlayer\EditorExtensions\UnityEditor.Android.Extensions.dll</HintPath>
- </Reference>
- <Reference Include="LitJson">
- <HintPath>Assets\my_wow\scripts\Bean\LitJson.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>

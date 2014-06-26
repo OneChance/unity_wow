@@ -71,7 +71,7 @@ public class NetWorkScript
 				}
 
 				try {
-						socket.Send (ba.Buffer);
+						socket.Send (ba.Buffer,ba.Length,SocketFlags.None);
 				} catch {
 						alertConstants.alertList.Add (alertConstants.SERVER_ERROR);
 				}

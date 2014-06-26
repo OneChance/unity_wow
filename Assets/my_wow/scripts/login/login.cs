@@ -20,7 +20,7 @@ public class login : MonoBehaviour
 						SocketModel model = new SocketModel ();
 			
 						model.type = Module.LOGIN;
-						model.area = 0;
+						model.area = 1;
 						model.command = Protocal.LOGIN_REQ;
 						model.message = JsonUtil<Account>.encode (account);
 			

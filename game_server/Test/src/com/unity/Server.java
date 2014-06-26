@@ -10,6 +10,9 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import com.unity.bean.Protocal;
+import com.unity.util.ConvertType;
+
 public class Server extends ServerSocket {
 	private static final int SERVER_PORT = 10100;
 
@@ -42,17 +45,57 @@ public class Server extends ServerSocket {
 		public void run() {
 			try {
 
-				int type = in.readInt();
-				int area = in.readInt();
-				int protocal = in.readInt();
-				int messageLength = in.readInt();
-				String message = in.readUTF();
+				byte[] temp = new byte[4];
 
-				System.out.println("--------" + type);
-				System.out.println("--------" + area);
-				System.out.println("--------" + protocal);
-				System.out.println("--------" + messageLength);
-				System.out.println("--------" + message);
+				while (true) {
+
+					int type = 0;
+					in.read(temp);
+					type = ConvertType.getInt(temp, true);
+
+					int area = 0;
+					in.read(temp);
+					area = ConvertType.getInt(temp, true);
+
+					int protocal = 0;
+					in.read(temp);
+					protocal = ConvertType.getInt(temp, true);
+
+					int messageLength = 0;
+					String message = "";
+					
+					switch (protocal) {
+					case Protocal.LOGIN_REQ:// µÇÂ½ÇëÇó
+
+						
+						in.read(temp);
+						messageLength = ConvertType.getInt(temp, true);
+
+						if (messageLength > 0) {
+							byte[] messageBytes = new byte[messageLength];
+							in.read(messageBytes);
+							message = new String(messageBytes);
+
+						}
+
+						break;
+					case Protocal.REG_REQ:// ×¢²áÇëÇó
+
+						in.read(temp);
+						messageLength = ConvertType.getInt(temp, true);
+
+						if (messageLength > 0) {
+							byte[] messageBytes = new byte[messageLength];
+							in.read(messageBytes);
+							message = new String(messageBytes);
+						}
+
+						break;
+					default:
+						break;
+					}
+
+				}
 
 				// client.close();
 			} catch (Exception e) {
