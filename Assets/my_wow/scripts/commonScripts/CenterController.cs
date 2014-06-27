@@ -17,6 +17,7 @@ public class CenterController : MonoBehaviour
 				NetWorkScript nws = NetWorkScript.getInstance ();
 				
 				List<SocketModel> messageList = NetWorkScript.getInstance ().getMessageList ();
+
 				for (int i=0; i<5; i++) {
 						if (messageList.Count > 0) {
 								SocketModel model = messageList [0];

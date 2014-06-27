@@ -2,6 +2,7 @@ package com.unity;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -16,13 +17,17 @@ import com.unity.bean.Account;
 import com.unity.bean.Protocal;
 import com.unity.bean.SocketMessage;
 import com.unity.util.ConvertType;
+import com.unity.util.DBUtil;
 import com.unity.util.JsonUtil;
 
 public class Server extends ServerSocket {
 	private static final int SERVER_PORT = 10100;
+	private static DBUtil dbUtil;
 
 	public Server() throws IOException {
 		super(SERVER_PORT);
+		
+		dbUtil = new DBUtil();
 
 		try {
 			while (true) {
@@ -38,12 +43,14 @@ public class Server extends ServerSocket {
 	class CreateServerThread extends Thread {
 		private Socket client;
 		private DataInputStream in;
+		private DataOutputStream out;
 
 		public CreateServerThread(Socket s) throws IOException {
 			client = s;
 
 			in = new DataInputStream(client.getInputStream());
-
+			out = new DataOutputStream(client.getOutputStream());
+			
 			start();
 		}
 
@@ -88,7 +95,7 @@ public class Server extends ServerSocket {
 							message = new String(messageBytes);
 							
 							Account account = JsonUtil.decode(message,Account.class);
-							
+							sm.setMessage(JsonUtil.encode(dbUtil.checkAccount(account)));
 						}
 
 						break;
@@ -108,6 +115,23 @@ public class Server extends ServerSocket {
 						break;
 					}
 
+					//send message to client
+					byte[] type_bytes = ConvertType.getBytes(sm.getType(), true);							
+					out.write(type_bytes,0,type_bytes.length);
+					
+					byte[] area_bytes = ConvertType.getBytes(sm.getArea(), true);							
+					out.write(area_bytes,0,area_bytes.length);
+					
+					byte[] commond_bytes = ConvertType.getBytes(sm.getCommand(), true);							
+					out.write(commond_bytes,0,commond_bytes.length);
+					
+					byte[] length_bytes = ConvertType.getBytes(sm.getMessage().length(), true);							
+					out.write(length_bytes,0,length_bytes.length);
+					
+					out.write(sm.getMessage().getBytes(),0,sm.getMessage().getBytes().length);
+
+					out.flush();
+					
 				}
 
 				// client.close();

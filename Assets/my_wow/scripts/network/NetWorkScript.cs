@@ -46,12 +46,19 @@ public class NetWorkScript
 						//获取消息体长度
 						int readCount = 0;
 						readCount = socket.EndReceive (ar);
+
+						Debug.Log ("readCount:" + readCount);
+						Debug.Log ("buff length:" + buff.Length);
+
 						byte[] temp = new byte[readCount];
 						//将服务器返回的缓存内容读取到temp中
-						Buffer.BlockCopy (buff, 0, temp, 0, readCount);					
+						Buffer.BlockCopy (buff, 0, temp, 0, readCount);	
+
+						readMessage (temp);
+
 				} catch {
 						socket.Close ();
-						Debug.Log ("net work error");		
+						Debug.Log ("net work error when receive");		
 				}
 
 				socket.BeginReceive (buff, 0, 1024, SocketFlags.None, ReceiveCallBack, null);	
@@ -71,25 +78,39 @@ public class NetWorkScript
 				}
 
 				try {
-						socket.Send (ba.Buffer,ba.Length,SocketFlags.None);
+						socket.Send (ba.Buffer, ba.Length, SocketFlags.None);
 				} catch {
 						alertConstants.alertList.Add (alertConstants.SERVER_ERROR);
 				}
 		}
 
-		private void readMessage (byte[] message)
+		public static void readMessage (byte[] message)
 		{
 				MemoryStream ms = new MemoryStream (message, 0, message.Length);
 				ByteArray ba = new ByteArray (ms);
 				SocketModel model = new SocketModel ();
+
 				model.type = ba.ReadInt ();
+
+				Debug.Log ("type:" + model.type);
+
 				model.area = ba.ReadInt ();
+				
+				Debug.Log ("area:" + model.area);
+
 				model.command = ba.ReadInt ();
+
+				Debug.Log ("command:" + model.command);
+
 				int length = ba.ReadInt ();
-			
+
+				Debug.Log ("message length:" + length);
+
 				if (length > 0) {
 						model.message = ba.ReadUTFBytes ((uint)length);
 				}
+
+				Debug.Log ("message:" + model.message);	
 
 				messageList.Add (model);
 		}
