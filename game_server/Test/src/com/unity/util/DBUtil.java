@@ -22,7 +22,7 @@ public class DBUtil {
 	
 	public Account checkAccount(Account account){
 		for(Account acc:accountList){
-			if(acc.getUserName().equals(account.getUserName())){
+			if(acc.getUserName().equals(account.getUserName())&&acc.getPassword().equals(account.getPassword())){
 				return acc;
 			}
 		}

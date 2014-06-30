@@ -116,16 +116,16 @@ public class Server extends ServerSocket {
 					}
 
 					//send message to client
-					byte[] type_bytes = ConvertType.getBytes(sm.getType(), true);							
+					byte[] type_bytes = ConvertType.getBytes(sm.getType(), false);							
 					out.write(type_bytes,0,type_bytes.length);
 					
-					byte[] area_bytes = ConvertType.getBytes(sm.getArea(), true);							
+					byte[] area_bytes = ConvertType.getBytes(sm.getArea(), false);							
 					out.write(area_bytes,0,area_bytes.length);
 					
-					byte[] commond_bytes = ConvertType.getBytes(sm.getCommand(), true);							
+					byte[] commond_bytes = ConvertType.getBytes(sm.getCommand(), false);							
 					out.write(commond_bytes,0,commond_bytes.length);
 					
-					byte[] length_bytes = ConvertType.getBytes(sm.getMessage().length(), true);							
+					byte[] length_bytes = ConvertType.getBytes(sm.getMessage().length(), false);							
 					out.write(length_bytes,0,length_bytes.length);
 					
 					out.write(sm.getMessage().getBytes(),0,sm.getMessage().getBytes().length);

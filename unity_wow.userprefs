@@ -1,11 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workspace />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\my_wow\scripts\network\NetWorkScript.cs">
     <Files>
-      <File FileName="Assets\my_wow\scripts\network\NetWorkScript.cs" Line="50" Column="7" />
-      <File FileName="Assets\my_wow\scripts\login\LoginController.cs" Line="8" Column="3" />
-      <File FileName="Assets\my_wow\scripts\network\NetWorkScript.cs" Line="118" Column="1" />
-      <File FileName="Assets\my_wow\scripts\commonScripts\CenterController.cs" Line="19" Column="84" />
+      <File FileName="Assets\my_wow\scripts\network\NetWorkScript.cs" Line="72" Column="26" />
+      <File FileName="Assets\my_wow\scripts\network\ByteArray.cs" Line="31" Column="30" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
