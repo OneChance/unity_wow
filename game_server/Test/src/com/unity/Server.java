@@ -26,7 +26,7 @@ public class Server extends ServerSocket {
 
 	public Server() throws IOException {
 		super(SERVER_PORT);
-		
+
 		dbUtil = new DBUtil();
 
 		try {
@@ -50,7 +50,7 @@ public class Server extends ServerSocket {
 
 			in = new DataInputStream(client.getInputStream());
 			out = new DataOutputStream(client.getOutputStream());
-			
+
 			start();
 		}
 
@@ -60,13 +60,13 @@ public class Server extends ServerSocket {
 				byte[] temp = new byte[4];
 
 				while (true) {
-					
+
 					SocketMessage sm = new SocketMessage();
 
 					int type = 0;
 					in.read(temp);
 					type = ConvertType.getInt(temp, true);
-					
+
 					sm.setType(type);
 
 					int area = 0;
@@ -80,34 +80,36 @@ public class Server extends ServerSocket {
 
 					int messageLength = 0;
 					String message = "";
-					
+
+					in.read(temp);
+					messageLength = ConvertType.getInt(temp, true);
+
+					byte[] messageBytes = new byte[messageLength];
+					in.read(messageBytes);
+					message = new String(messageBytes);
+
 					switch (protocal) {
 					case Protocal.LOGIN_REQ:// µÇÂ½ÇëÇó
 
 						sm.setCommand(Protocal.LOGIN_RES);
-						
-						in.read(temp);
-						messageLength = ConvertType.getInt(temp, true);
 
 						if (messageLength > 0) {
-							byte[] messageBytes = new byte[messageLength];
-							in.read(messageBytes);
-							message = new String(messageBytes);
-							
-							Account account = JsonUtil.decode(message,Account.class);
-							sm.setMessage(JsonUtil.encode(dbUtil.checkAccount(account)));
+							Account account = JsonUtil.decode(message,
+									Account.class);
+							sm.setMessage(JsonUtil.encode(dbUtil
+									.checkAccount(account)));
 						}
 
 						break;
 					case Protocal.REG_REQ:// ×¢²áÇëÇó
 
-						in.read(temp);
-						messageLength = ConvertType.getInt(temp, true);
+						sm.setCommand(Protocal.REG_REQ);
 
 						if (messageLength > 0) {
-							byte[] messageBytes = new byte[messageLength];
-							in.read(messageBytes);
-							message = new String(messageBytes);
+							Account account = JsonUtil.decode(message,
+									Account.class);
+							sm.setMessage(JsonUtil.encode(dbUtil
+									.checkReg(account)));
 						}
 
 						break;
@@ -115,23 +117,28 @@ public class Server extends ServerSocket {
 						break;
 					}
 
-					//send message to client
-					byte[] type_bytes = ConvertType.getBytes(sm.getType(), false);							
-					out.write(type_bytes,0,type_bytes.length);
-					
-					byte[] area_bytes = ConvertType.getBytes(sm.getArea(), false);							
-					out.write(area_bytes,0,area_bytes.length);
-					
-					byte[] commond_bytes = ConvertType.getBytes(sm.getCommand(), false);							
-					out.write(commond_bytes,0,commond_bytes.length);
-					
-					byte[] length_bytes = ConvertType.getBytes(sm.getMessage().length(), false);							
-					out.write(length_bytes,0,length_bytes.length);
-					
-					out.write(sm.getMessage().getBytes(),0,sm.getMessage().getBytes().length);
+					// send message to client
+					byte[] type_bytes = ConvertType.getBytes(sm.getType(),
+							false);
+					out.write(type_bytes, 0, type_bytes.length);
+
+					byte[] area_bytes = ConvertType.getBytes(sm.getArea(),
+							false);
+					out.write(area_bytes, 0, area_bytes.length);
+
+					byte[] commond_bytes = ConvertType.getBytes(
+							sm.getCommand(), false);
+					out.write(commond_bytes, 0, commond_bytes.length);
+
+					byte[] length_bytes = ConvertType.getBytes(sm.getMessage()
+							.length(), false);
+					out.write(length_bytes, 0, length_bytes.length);
+
+					out.write(sm.getMessage().getBytes(), 0, sm.getMessage()
+							.getBytes().length);
 
 					out.flush();
-					
+
 				}
 
 				// client.close();

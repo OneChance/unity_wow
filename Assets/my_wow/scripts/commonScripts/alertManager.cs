@@ -34,6 +34,9 @@ public class alertManager : MonoBehaviour
 				case alertConstants.MODULE_ERROR:
 						aScript.setMessage ("Unknown module!");
 						break;
+				case alertConstants.ACCOUNT_ERROR:
+						aScript.setMessage ("Account Error!");
+						break;
 				default:
 						aScript.setMessage ("Unknown Error!");
 						break;

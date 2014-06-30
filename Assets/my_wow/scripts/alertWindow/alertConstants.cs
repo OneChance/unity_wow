@@ -7,5 +7,6 @@ public class alertConstants
 	public const int INPUT_ERROR = 0;
 	public const int SERVER_ERROR = 1;
 	public const int MODULE_ERROR = 2;
+	public const int ACCOUNT_ERROR = 3;
 }
 

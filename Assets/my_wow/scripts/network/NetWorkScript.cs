@@ -108,25 +108,25 @@ public class NetWorkScript
 
 		model.type = ba.ReadInt ();
 
-		Debug.Log ("type:" + model.type);
+		//Debug.Log ("type:" + model.type);
 
 		model.area = ba.ReadInt ();
 				
-		Debug.Log ("area:" + model.area);
+		//Debug.Log ("area:" + model.area);
 
 		model.command = ba.ReadInt ();
 
-		Debug.Log ("command:" + model.command);
+		//Debug.Log ("command:" + model.command);
 
 		int length = ba.ReadInt ();
 
-		Debug.Log ("message length:" + length);
+		//Debug.Log ("message length:" + length);
 
 		if (length > 0) {
 			model.message = ba.ReadUTFBytes ((uint)length);
 		}
 
-		Debug.Log ("message:" + model.message);	
+		//Debug.Log ("message:" + model.message);	
 
 		messageList.Add (model);
 	}

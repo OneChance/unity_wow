@@ -28,4 +28,17 @@ public class DBUtil {
 		}
 		return account;
 	}
+	
+	public Account checkReg(Account account){
+		for(Account acc:accountList){
+			if(acc.getUserName().equals(account.getUserName())&&acc.getPassword().equals(account.getPassword())){
+				return account;
+			}
+		}
+		
+		account.setUserid(accountList.size()+1);
+		accountList.add(account);
+		
+		return account;
+	}
 }
