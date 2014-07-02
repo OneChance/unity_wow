@@ -23,7 +23,7 @@ public class login : MonoBehaviour
 						model.area = 1;
 						model.command = Protocal.LOGIN_REQ;
 						model.message = JsonUtil<Account>.encode (account);
-			
+
 						nws.sendMessage (model);
 				} else {
 						alertConstants.alertList.Add (alertConstants.INPUT_ERROR);	

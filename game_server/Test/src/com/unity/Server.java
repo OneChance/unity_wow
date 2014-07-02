@@ -1,18 +1,10 @@
 package com.unity;
 
-import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.List;
-import java.util.Map;
-
 import com.unity.bean.Account;
 import com.unity.bean.Protocal;
 import com.unity.bean.SocketMessage;
@@ -103,7 +95,7 @@ public class Server extends ServerSocket {
 						break;
 					case Protocal.REG_REQ:// 注册请求
 
-						sm.setCommand(Protocal.REG_REQ);
+						sm.setCommand(Protocal.REG_RES);
 
 						if (messageLength > 0) {
 							Account account = JsonUtil.decode(message,
@@ -143,6 +135,15 @@ public class Server extends ServerSocket {
 
 				// client.close();
 			} catch (Exception e) {
+				System.out.println("连接断开..........");
+				try {
+					out.close();
+					in.close();
+					client.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				e.printStackTrace();
 			}
 		}

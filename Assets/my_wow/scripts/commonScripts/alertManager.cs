@@ -34,8 +34,11 @@ public class alertManager : MonoBehaviour
 				case alertConstants.MODULE_ERROR:
 						aScript.setMessage ("Unknown module!");
 						break;
-				case alertConstants.ACCOUNT_ERROR:
-						aScript.setMessage ("Account Error!");
+				case alertConstants.ACCOUNT_NOT_EXIST:
+						aScript.setMessage ("Account not exist!");
+						break;
+				case alertConstants.ACCOUNT_EXIST:
+						aScript.setMessage ("Account exist!");
 						break;
 				default:
 						aScript.setMessage ("Unknown Error!");
